@@ -1,7 +1,10 @@
 <template>
-    <div>
-
-    </div>
+    <footer class="shortener_footer">
+        <p class="footer-text">
+            Designed by the
+            <a href="https://behance.net/madamimartin">UX Guy</a>
+        </p>
+    </footer>
 </template>
 
 
@@ -13,5 +16,22 @@ export default {
 
 
 <style scoped>
+footer {
+    background: #000000;
+    padding: 25px;
+}
 
+p.footer-text {
+    text-align: center;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 38px;
+    letter-spacing: 0.065em;
+    color: #FFA36A;
+    margin-bottom: 0px;
+}
+
+a {
+    color: #FFA36A;
+}
 </style>
