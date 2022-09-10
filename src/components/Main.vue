@@ -1,15 +1,33 @@
 <template>
-    <div class="main-top-bg"></div>
-    <section class="main__content">
-        <h1 class="main-text">URL SHortener</h1>
-        <h4 class="main-subtitle">Shorten any URL link with a click</h4>
-    </section>
+    <div class="main">
+
+        <!-- Main Top BG -->
+        <div class="main-top-bg"></div>
+        <!-- End of Main Top BG -->
+
+        <section class="main__content">
+            <h1 class="main-text">URL SHortener</h1>
+            <h4 class="main-subtitle">Shorten any URL link with a click</h4>
+        </section>
+
+        <section class="input__content">
+            <!-- Input -->
+            <Input />
+            <!-- End of Input -->
+        </section>
+
+    </div>
 </template>
 
 
 <script>
+import Input from '@/components/Input.vue';
+
 export default {
-    name: "Main"
+    name: "Main",
+    components: {
+        Input,
+    }
 }
 </script>
 
@@ -27,9 +45,9 @@ div.main-top-bg {
     opacity: 0.4;
 }
 
-section.main__content {
+div.main {
     text-align: center;
-    padding: 10rem 0rem 24.5rem 0rem;
+    padding: 10rem 0rem 17.2rem 0rem;
 }
 
 h1.main-text {
