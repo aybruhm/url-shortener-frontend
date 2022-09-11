@@ -2,7 +2,7 @@
     <footer class="shortener_footer">
         <p class="footer-text">
             Designed by the
-            <a href="https://behance.net/madamimartin">UX Guy</a>
+            <a href="https://www.behance.net/martinmadami" target="_blank">UX Guy</a>
         </p>
     </footer>
 </template>
