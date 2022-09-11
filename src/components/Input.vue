@@ -20,19 +20,29 @@
                 <div class="form-group button-group">
                     <button class="btn back-btn" type="button" @click="refreshPage()">Back</button>
                     <button class="btn copy-shorten-btn" type="button" @click="copyShortenURL(shortened_url)">
-                       Copy
+                        <span v-if="copied">Copied</span>
+                        <span v-else>Copy</span>
                     </button>
                 </div>
             </div>
 
             <!-- Default Form to be shown -->
             <div v-else="shortened_url_length === 0">
+
                 <div class="form-group">
                     <input type="text" v-model="original_url" class="form-control" placeholder="Type URL Link" required>
+                    <p class="errors" v-if="error">{{ error_message }}</p>
                 </div>
 
                 <div class="form-group">
-                    <button class="btn submit-btn" type="button" @click="shortenURL()">Continue</button>
+                    <button class="btn submit-btn" type="button" @click="shortenURL()">
+                        <span v-if="loading">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </span>
+                        <span v-else>Continue</span>
+                    </button>
                 </div>
             </div>
 
@@ -51,38 +61,73 @@ export default {
         return {
             original_url: "",
             shortened_url: "",
+            error_message: "",
             shortened_url_length: 0,
             copied: false,
+            disabled: false,
+            loading: false,
+            error: false,
         }
     },
     methods: {
         async shortenURL() {
 
-            await axios({
-                method: "POST",
-                url: `${baseURL}shorten/`,
-                data: {
-                    "original_url": this.original_url,
-                },
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then((res) => {
-                    this.shortened_url = res.data.data.short_url;
-                    this.shortened_url_length = this.shortened_url.length
-                    console.log("Response: ", res.data.data);
+            // set loading to true
+            this.loading = true;
+
+            // check if original_url exist
+            if (this.original_url === "") {
+                this.error = true;
+                this.error_message = "Can't leave this blank..";
+
+                // remove error and loading spin after 3 seconds
+                setTimeout(() => {
+                    this.error = false;
+                    this.loading = false;
+                }, 3000);
+            }
+
+            else {
+
+                await axios({
+                    method: "POST",
+                    url: `${baseURL}shorten/`,
+                    data: {
+                        "original_url": this.original_url,
+                    },
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
                 })
-                .catch((err) => {
-                    console.log("Erorr: ", err);
-                });
+                    .then((res) => {
+                        this.shortened_url = "https://" + res.data.data.short_url;
+                        this.shortened_url_length = this.shortened_url.length
+
+                        // set loading to false
+                        this.loading = false;
+                    })
+                    .catch((err) => {
+
+                        // set error to variables
+                        this.error = true;
+                        this.error_message = err.message;
+
+                        // reload window after 3sec
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000)
+                    });
+            }
+
         },
         refreshPage() {
+            // reloads page
             window.location.reload();
         },
         copyShortenURL(url) {
-            navigator.clipboard.writeText(url);
+            // sets copied to true and copies url to clipboard
             this.copied = true;
+            navigator.clipboard.writeText(url);
         }
     }
 }
@@ -158,6 +203,15 @@ div.form-group>h4.main-subtitle {
     font-size: 20px;
 }
 
+p.errors {
+    background-color: #af233a;
+    padding: 6px 25px;
+    max-width: 35%;
+    margin: auto;
+    margin-top: 10px;
+    color: #fff;
+}
+
 div.button-group {
     display: flex;
     justify-content: space-between;
@@ -167,6 +221,10 @@ div.button-group {
 
 a.shortened-link {
     color: #000;
+}
+
+div.spinner-border {
+    padding: 0px 0px;
 }
 
 @media screen and (max-width: 489px) {
