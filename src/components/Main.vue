@@ -60,17 +60,6 @@ h1.main-text {
     color: #000000;
 }
 
-h4.main-subtitle {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    margin-top: 0%;
-    padding-top: 0%;
-    line-height: 40px;
-    letter-spacing: 0.065em;
-    color: #000000;
-}
-
 
 @media screen and (max-width: 489px) {
     div.main-top-bg {
@@ -87,10 +76,6 @@ h4.main-subtitle {
     h1.main-text {
         font-size: 46px;
         margin-top: 60px;
-    }
-
-    h4.main-subtitle {
-        font-size: 18px;
     }
 }
 </style>
