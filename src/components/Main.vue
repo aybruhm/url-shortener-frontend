@@ -60,7 +60,6 @@ h1.main-text {
     color: #000000;
 }
 
-
 @media screen and (max-width: 489px) {
     div.main-top-bg {
         width: 80px;
@@ -70,12 +69,18 @@ h1.main-text {
     }
 
     div.main {
-        padding: 4rem 0rem 8rem 0rem;
+        padding: 4rem 0rem 6rem 0rem;
     }
 
     h1.main-text {
         font-size: 46px;
-        margin-top: 60px;
+        margin-top: 30px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    div.main {
+        padding: 0px;
     }
 }
 </style>

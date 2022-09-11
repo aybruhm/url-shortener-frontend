@@ -15,6 +15,10 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+#app {
+  background: linear-gradient(138.95deg, #FFA36A 23.27%, #EFC5C4 97.22%);
+}
+
 h4.main-subtitle {
   font-style: normal;
   font-weight: 500;
@@ -28,7 +32,8 @@ h4.main-subtitle {
 
 @media screen and (max-width: 489px) {
   h4.main-subtitle {
-    font-size: 18px;
+    font-size: 18px !important;
+    line-height: 30px;
   }
 }
 </style>

@@ -232,5 +232,17 @@ div.spinner-border {
         width: 100%;
         height: 70px;
     }
+
+    p.errors {
+        max-width: 100%;
+    }
+
+    div.button-group {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
 }
 </style>

@@ -1,23 +1,24 @@
 <template>
-  <div class="home">
 
-    <div class="container-fluid">
+  <div class="container-fluid">
 
-      <!-- Navbar -->
-      <Navbar />
-      <!-- End of Navbar -->
+    <!-- Navbar -->
+    <Navbar />
+    <!-- End of Navbar -->
 
-      <!-- Main -->
+    <!-- Main -->
+    <div class="home">
       <Main />
-      <!-- End of Main -->
-
     </div>
 
-    <!-- Footer -->
-    <Footer />
-    <!-- End of Footer -->
+    <!-- End of Main -->
 
   </div>
+
+  <!-- Footer -->
+  <Footer />
+  <!-- End of Footer -->
+
 </template>
 
 
@@ -40,7 +41,25 @@ export default {
 
 <style scoped>
 div.home {
-  background: linear-gradient(138.95deg, #FFA36A 23.27%, #EFC5C4 97.22%);
-  height: 100vh;
+  padding: 0;
+}
+
+
+@media screen and (max-width: 890px) {
+  div.home {
+    padding: 0rem 0 8.5rem 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  div.home {
+    padding: 3.5rem 0 5rem 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.home {
+    padding: 2.5rem 0 5.5rem 0;
+  }
 }
 </style>
