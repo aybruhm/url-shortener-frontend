@@ -1,13 +1,41 @@
 <template>
     <div class="form-container">
         <form method="POST">
-            <div class="form-group">
-                <input type="text" v-model="original_url" class="form-control" placeholder="Type URL Link" required>
+
+            <!-- When Original URL has been shortened, show this -->
+            <div v-if="shortened_url_length > 1">
+                <div class="form-group">
+                    <input type="text" class="form-control" :value="original_url" disabled>
+                </div>
+
+                <div class="form-group">
+                    <h4 class="main-subtitle">
+                        New URL:
+                        <a :href="shortened_url" class="shortened-link">
+                            {{ shortened_url }}
+                        </a>
+                    </h4>
+                </div>
+
+                <div class="form-group button-group">
+                    <button class="btn back-btn" type="button" @click="refreshPage()">Back</button>
+                    <button class="btn copy-shorten-btn" type="button" @click="copyShortenURL(shortened_url)">
+                       Copy
+                    </button>
+                </div>
             </div>
 
-            <div class="form-group">
-                <button class="btn submit-btn" type="button" @click="shortenURL()">Continue</button>
+            <!-- Default Form to be shown -->
+            <div v-else="shortened_url_length === 0">
+                <div class="form-group">
+                    <input type="text" v-model="original_url" class="form-control" placeholder="Type URL Link" required>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn submit-btn" type="button" @click="shortenURL()">Continue</button>
+                </div>
             </div>
+
         </form>
     </div>
 </template>
@@ -15,13 +43,16 @@
 
 <script>
 import axios from "axios";
+let baseURL = "https://shortly-api.abram.tech/api/"; // http://127.0.0.1:8800/api/
 
 export default {
     name: "Input",
     data() {
         return {
             original_url: "",
-            shortened_url: ""
+            shortened_url: "",
+            shortened_url_length: 0,
+            copied: false,
         }
     },
     methods: {
@@ -29,7 +60,7 @@ export default {
 
             await axios({
                 method: "POST",
-                url: `shorten/`,
+                url: `${baseURL}shorten/`,
                 data: {
                     "original_url": this.original_url,
                 },
@@ -39,11 +70,19 @@ export default {
             })
                 .then((res) => {
                     this.shortened_url = res.data.data.short_url;
+                    this.shortened_url_length = this.shortened_url.length
                     console.log("Response: ", res.data.data);
                 })
                 .catch((err) => {
                     console.log("Erorr: ", err);
                 });
+        },
+        refreshPage() {
+            window.location.reload();
+        },
+        copyShortenURL(url) {
+            navigator.clipboard.writeText(url);
+            this.copied = true;
         }
     }
 }
@@ -83,6 +122,8 @@ img.img-responsive {
     cursor: pointer;
 }
 
+button.back-btn,
+button.copy-shorten-btn,
 button.submit-btn {
     justify-content: center;
     align-items: center;
@@ -99,6 +140,33 @@ button.submit-btn {
     text-transform: Capitalize;
     letter-spacing: 0.065em;
     color: #FFA36A;
+}
+
+button.back-btn {
+    background-color: transparent;
+    border: 3px solid #000;
+    color: #000;
+}
+
+button.back-btn,
+button.copy-shorten-btn {
+    padding: 12px 25px;
+}
+
+div.form-group>h4.main-subtitle {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+div.button-group {
+    display: flex;
+    justify-content: space-between;
+    max-width: 20%;
+    margin: auto;
+}
+
+a.shortened-link {
+    color: #000;
 }
 
 @media screen and (max-width: 489px) {
