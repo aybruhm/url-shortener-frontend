@@ -52,6 +52,20 @@ a.navbar-brand>img {
 }
 
 @media screen and (max-width: 489px) {
+    div.nav-top-bg {
+        width: 250px;
+        height: 250px;
+    }
+
+    div.nav-bottom-bg {
+        left: 200px;
+        top: 90px;
+    }
+
+    nav.navbar {
+        padding: 20px;
+    }
+
     a.navbar-brand>img {
         width: 200px;
     }

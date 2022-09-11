@@ -70,4 +70,27 @@ h4.main-subtitle {
     letter-spacing: 0.065em;
     color: #000000;
 }
+
+
+@media screen and (max-width: 489px) {
+    div.main-top-bg {
+        width: 80px;
+        height: 80px;
+        left: 100px;
+        top: 121px;
+    }
+
+    div.main {
+        padding: 4rem 0rem 8rem 0rem;
+    }
+
+    h1.main-text {
+        font-size: 46px;
+        margin-top: 60px;
+    }
+
+    h4.main-subtitle {
+        font-size: 18px;
+    }
+}
 </style>

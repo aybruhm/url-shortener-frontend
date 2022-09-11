@@ -34,4 +34,10 @@ p.footer-text {
 a {
     color: #FFA36A;
 }
+
+@media screen and (max-width: 489px) {
+    p.footer-text {
+        font-size: 18px;
+    }
+}
 </style>

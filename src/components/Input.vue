@@ -1,14 +1,12 @@
 <template>
     <div class="form-container">
-        <form>
+        <form method="POST">
             <div class="form-group">
-                <input type="text" name="original_url" class="form-control" placeholder="Type URL Link">
-
-                <img src="@/assets/paste-it.png" alt="paste-it" class="img-responsive">
+                <input type="text" v-model="original_url" class="form-control" placeholder="Type URL Link" required>
             </div>
 
             <div class="form-group">
-                <button class="btn submit-btn" type="submit">Continue</button>
+                <button class="btn submit-btn" type="button" @click="shortenURL()">Continue</button>
             </div>
         </form>
     </div>
@@ -16,8 +14,38 @@
 
 
 <script>
+import axios from "axios";
+
 export default {
-    name: "Input"
+    name: "Input",
+    data() {
+        return {
+            original_url: "",
+            shortened_url: ""
+        }
+    },
+    methods: {
+        async shortenURL() {
+
+            await axios({
+                method: "POST",
+                url: `shorten/`,
+                data: {
+                    "original_url": this.original_url,
+                },
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then((res) => {
+                    this.shortened_url = res.data.data.short_url;
+                    console.log("Response: ", res.data.data);
+                })
+                .catch((err) => {
+                    console.log("Erorr: ", err);
+                });
+        }
+    }
 }
 </script>
 
@@ -71,5 +99,12 @@ button.submit-btn {
     text-transform: Capitalize;
     letter-spacing: 0.065em;
     color: #FFA36A;
+}
+
+@media screen and (max-width: 489px) {
+    input.form-control {
+        width: 100%;
+        height: 70px;
+    }
 }
 </style>
